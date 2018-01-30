@@ -6,7 +6,7 @@
 > Custom, simple, module for observing objects / event emitting
 
 
-[mit-image]: 
+[mit-image]: https://raw.githubusercontent.com/stanurkov/observed-object/master/mit.svg
 [mit-url]: https://github.com/stanurkov/ln3/blob/master/LICENSE
 
 

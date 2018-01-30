@@ -124,7 +124,7 @@ class ObservedObject {
         }
     }
 
-    emit(eventType, data) {
+    emit(eventType, data, ...other) {
 
         this.__notifyingNow ++;
 
@@ -137,7 +137,7 @@ class ObservedObject {
                 if (observers) {
                 
                     observers.forEach( o => {
-                        o.observer(eventType, data);
+                        o.observer(eventType, data, ...other);
                         if (o.once) {
                             this.off(eventType, o.observer);
                         }

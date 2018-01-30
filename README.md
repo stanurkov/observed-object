@@ -47,7 +47,9 @@ oo.emit("1", "test");                      // no output
 
 ```
 
-This class is designed to be safe for using in asynchronous 
+#### Async safe
+
+This class is designed to be safe for asynchronous usage, i.e. it is possible to safely register/unregister observers in asynchronous calls or within event handlers
 
 #### Installation
 
@@ -57,3 +59,23 @@ From the root of your project.
 npm install observed-object
 ```
 
+#### Registering observers
+
+```
+  anObject.on(eventType, callback, once)
+```
+
+Callback is a function that receives at least one parameter (eventType) and at most all other parameters passed to the emit object's method
+
+#### Unregistering observers
+```
+  anObject.off(eventType, callback)
+```
+
+#### Emitting events 
+
+```
+  anObject.emit(eventType, data, ...other)
+```
+
+This will notify all registered observers passing all the parameters to them

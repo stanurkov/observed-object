@@ -1,19 +1,15 @@
-class ObservedObject {
+var baseObservedObject =  {
 
-    constructor (template) {
-        this.updateFrom(template);
-    }
-
-    updateFrom(template) {
+    updateFrom: function (template) {
         if (template) {
             for (var i in template) {
                 this[i] = template[i];
             }
         }
         return this;
-    }
+    },
 
-    copyInto(recipient) {
+    copyInto: function(recipient) {
         if (recipient == this) {
             return this;
         }
@@ -24,13 +20,34 @@ class ObservedObject {
             recipient[i] = this[i];
         }
         return recipient;
-    }
+    },
 
-    once(eventType, observer) {
+    cloneObject: function (object) {
+
+        if (typeof object === "object") {
+                if (object) {
+                    if (Array.isArray(object) && object.map) {
+                        return object.map( item => this.cloneObject( item ) );
+                    }
+    
+                    const result = { };
+                    for (let i in object) {
+                        result[i] = this.cloneObject(object[i])
+                    }
+                    return result;
+    
+                } else return null;
+        }
+    
+        return object;
+    
+    },
+    
+    once: function(eventType, observer) {
         this.on(eventType, observer, true);
-    } 
+    }, 
 
-    on(eventType, observer, once) {
+    on: function (eventType, observer, once) {
 
         if (this.__notifyingNow > 0) {
 
@@ -66,9 +83,9 @@ class ObservedObject {
         }
 
         return this;
-    }
+    },
 
-    off(eventType, observer) {
+    off: function(eventType, observer) {
 
         if (this.__notifyingNow > 0) {
             this.__toRemove = {
@@ -107,9 +124,9 @@ class ObservedObject {
         }
 
         return this;
-    }
+    },
 
-    execSetupChain( chainName, callback ) {
+    execSetupChain: function( chainName, callback ) {
         let chain = this[chainName];
         
         this[chainName] = null;
@@ -122,9 +139,9 @@ class ObservedObject {
 
             chain = next;
         }
-    }
+    },
 
-    emit(eventType, data, ...other) {
+    emit: function(eventType, data, ...other) {
 
         this.__notifyingNow ++;
 
@@ -155,6 +172,12 @@ class ObservedObject {
         }
         
     } 
+}
+
+function ObservedObject(template) {
+    this.updateFrom = baseObservedObject.updateFrom;
+    this.updateFrom(baseObservedObject);
+    this.updateFrom(template);
 }
 
 module.exports = ObservedObject;

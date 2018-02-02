@@ -154,7 +154,7 @@ var baseObservedObject =  {
                 if (observers) {
                 
                     observers.forEach( o => {
-                        o.observer(eventType, data, ...other);
+                        o.observer(eventType, data, ...other, this);
                         if (o.once) {
                             this.off(eventType, o.observer);
                         }

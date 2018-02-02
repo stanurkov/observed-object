@@ -1,6 +1,6 @@
 {
   "name": "observed-object",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A simple observable object class with some utility functions",
   "homepage": "https://github.com/stanurkov/observed-object",
   "repository": "github:stanurkov/observed-object",

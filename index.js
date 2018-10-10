@@ -1,3 +1,11 @@
+function isLength(value) {
+    return value > -1 && value % 1 == 0 && value < 9007199254740991;
+}
+
+function isArray(value) {
+    return value !== null && typeof value === 'object' && isLength(value.length);
+}
+
 var baseObservedObject =  {
 
     updateFrom: function (template) {
@@ -26,7 +34,7 @@ var baseObservedObject =  {
 
         if (typeof object === "object") {
                 if (object) {
-                    if (Array.isArray(object) && object.map) {
+                    if (isArray(object) && object.map) {
                         return object.map( item => this.cloneObject( item ) );
                     }
     
